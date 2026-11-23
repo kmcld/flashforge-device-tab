@@ -38,7 +38,7 @@ Printers with a working authenticated control API also offer pause, resume and c
 5. Open the **Device tab**. The plugin panel opens automatically for a configured
    FlashForge printer. For initial setup, use **Speed Dial → FlashForge Device Tab**.
 
-OrcaSlicer 2.5.0 or newer, Windows x64. The plugin needs no extra software: no
+OrcaSlicer 2.5.0 or newer, Windows x64 or Linux x64. The plugin needs no extra software: no
 Node, no Docker, no Raspberry Pi, no second application.
 
 The selected Device page is remembered per printer profile and address. The plugin
@@ -112,7 +112,7 @@ status read. Creator cameras use a separate MJPEG stream on port 8080.
 
 ## Development
 
-```powershell
+```bash
 python -m unittest discover -s tests
 ```
 
@@ -128,8 +128,10 @@ and credential errors, history, settings and the Device page bridge.
    uploads the plugin to the OrcaSlicer catalogue through GitHub OIDC — the tag
    becomes the published version and the release notes become the changelog.
 
-The catalogue requires a platform suffix in the uploaded file name, so the
-workflow sends `flashforge_device_tab_win_x86_64.py`.
+The catalogue requires a platform suffix in the uploaded file name. The plugin
+is pure Python, so the workflow sends the same file as
+`flashforge_device_tab_win_x86_64.py` and `flashforge_device_tab_linux_x86_64.py`;
+edit `PLUGIN_PLATFORMS` in the workflow to change the list.
 
 ## License
 

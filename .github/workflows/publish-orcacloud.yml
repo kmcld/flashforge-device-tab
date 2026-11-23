@@ -9,9 +9,11 @@ permissions:
   contents: read
 
 env:
-  # OrcaCloud wants a target suffix in the file name: name_win_x86_64.py
+  # OrcaCloud wants a platform suffix in the file name (name_win_x86_64.py).
+  # The plugin is pure Python, so the same file is published for each platform.
   PLUGIN_FILE: "flashforge_device_tab.py"
-  PLUGIN_TARGET: "flashforge_device_tab_win_x86_64.py"
+  PLUGIN_NAME: "flashforge_device_tab"
+  PLUGIN_PLATFORMS: "win_x86_64 linux_x86_64"
 
 jobs:
   publish:
@@ -22,7 +24,12 @@ jobs:
       - name: Publish release to OrcaCloud
         run: |
           set -euo pipefail
-          cp "$PLUGIN_FILE" "$PLUGIN_TARGET"
+          file_args=()
+          for platform in $PLUGIN_PLATFORMS; do
+            target="${PLUGIN_NAME}_${platform}.py"
+            cp "$PLUGIN_FILE" "$target"
+            file_args+=(-F "files=@$target")
+          done
           oidc_token="$(curl -sS -H "Authorization: Bearer $ACTIONS_ID_TOKEN_REQUEST_TOKEN" \
             "$ACTIONS_ID_TOKEN_REQUEST_URL&audience=orcacloud" | jq -r .value)"
           version="${GITHUB_REF_NAME#v}"
@@ -32,7 +39,7 @@ jobs:
           status="$(curl -sS -o response.json -w '%{http_code}' \
             -H "Authorization: Bearer $oidc_token" \
             -F "metadata=$metadata" \
-            -F "files=@$PLUGIN_TARGET" \
+            "${file_args[@]}" \
             https://api.orcaslicer.com/api/v1/plugin-publish/releases)"
           cat response.json
           echo

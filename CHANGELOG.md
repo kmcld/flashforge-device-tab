@@ -1,5 +1,13 @@
 ﻿# Changelog
 
+## 1.8.1
+
+- Linux x64 support. The plugin code was already platform-neutral; the release
+  workflow now also publishes `flashforge_device_tab_linux_x86_64.py` to the
+  catalogue alongside the Windows file.
+- The panel font falls back to the system UI font (Noto Sans, DejaVu Sans) when
+  Segoe UI is not installed.
+
 ## 1.8.0
 
 - Read legacy Adventurer-style TCP progress and inline temperature replies.

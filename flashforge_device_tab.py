@@ -4,7 +4,7 @@
 # name = "FlashForge Device Tab"
 # description = "Follow local FlashForge prints in the Device tab with live progress, temperatures, camera, print history and job controls."
 # author = "Max"
-# version = "1.8.0"
+# version = "1.8.1"
 # ///
 import base64
 import hashlib
@@ -88,7 +88,7 @@ PAGE = r'''<!doctype html>
 }
 * { box-sizing: border-box; }
 [hidden] { display: none !important; }
-body { margin: 0; background: var(--bg); color: var(--text); font: 14px "Segoe UI", sans-serif; font-variant-numeric: tabular-nums; }
+body { margin: 0; background: var(--bg); color: var(--text); font: 14px "Segoe UI", system-ui, "Noto Sans", "DejaVu Sans", sans-serif; font-variant-numeric: tabular-nums; }
 main { max-width: 1280px; margin: auto; padding: 20px 24px 28px; }
 h1, h2, p, dl, dd { margin: 0; }
 h1 { font-size: 17px; font-weight: 600; }
@@ -179,7 +179,7 @@ dialog.settings form { display: flex; flex-direction: column; gap: 6px; padding:
 dialog.settings h2 { margin-bottom: 6px; }
 dialog.settings label { margin-top: 8px; font-size: 12px; color: var(--muted); }
 dialog.settings input, dialog.settings textarea { width: 100%; }
-dialog.settings textarea { font: 13px "Segoe UI", sans-serif; resize: vertical; min-height: 96px; }
+dialog.settings textarea { font: 13px "Segoe UI", system-ui, "Noto Sans", "DejaVu Sans", sans-serif; resize: vertical; min-height: 96px; }
 .fleet-toggle { display: inline-flex; align-items: center; gap: 6px; font-size: 12px; color: var(--muted); cursor: pointer; white-space: nowrap; }
 .fleet-toggle input { margin: 0; }
 button.danger { border-color: #a4443f; color: #ffb4ae; }
@@ -439,7 +439,7 @@ function drawChart() {
     series.map(([field]) => sample[field] ?? 0))) / 50) * 50);
   const x = t => left + (t - start) / (end - start) * (right - left);
   const y = value => bottom - Math.max(0, value) / max * (bottom - top);
-  ctx.font = '11px "Segoe UI", sans-serif';
+  ctx.font = '11px "Segoe UI", system-ui, "Noto Sans", "DejaVu Sans", sans-serif';
   ctx.fillStyle = colors.getPropertyValue('--muted').trim();
   ctx.strokeStyle = colors.getPropertyValue('--line').trim();
   for (let tick = 0; tick <= 4; tick++) {
@@ -980,7 +980,7 @@ CONFIG_PAGE = r'''<!doctype html>
 <html lang="en">
 <meta charset="utf-8">
 <style>
-body { font: 14px "Segoe UI", sans-serif; color: var(--orca-fg, #eee); margin: 12px; }
+body { font: 14px "Segoe UI", system-ui, "Noto Sans", "DejaVu Sans", sans-serif; color: var(--orca-fg, #eee); margin: 12px; }
 label { display: block; margin: 8px 0 5px; }
 input, button { font: inherit; padding: 6px 8px; }
 p { max-width: 520px; }
